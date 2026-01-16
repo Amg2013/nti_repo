@@ -1,4 +1,5 @@
 // import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 // import 'package:nti_repo/firebase/auth_service.dart';
 import 'package:nti_repo/firebase/auth_services_class.dart';
@@ -90,9 +91,15 @@ class _LoginScreenState extends State<LoginScreen> {
           child: const Text('Login'),
         ),
       ),
+      Text('Dont have an account?'),
+      TextButton(
+        onPressed: () => onSingUpPressed(context),
+        child: const Text('suinssssssssssssgn up'),
+      ),
       // AuthTextFiled(hintText: 'password'),
     ];
   }
+
   /////////////////////////////////////////////////////////
   //////////////////////////Widgets///////////////////////////
   ///////////////////////////////////////////////////////////
@@ -113,9 +120,27 @@ class _LoginScreenState extends State<LoginScreen> {
               onPressed: () => Navigator.pop(context),
               child: const Text('OK'),
             ),
+            // SnackBar(content:
+            //  Text(FirebaseAuthException.toString()),
+
+            //  ),
           ],
         );
       },
+    );
+  }
+
+  void onSingUpPressed(BuildContext context) async {
+    final email = _usernameController.text.trim();
+    final password = _passwordController.text.trim();
+
+    if (email.isEmpty || password.isEmpty) {
+      _showErrorDialog(context, 'Please enter both email and password.');
+      return;
+    }
+    final userCredential = await AuthServicesClass.sigUpUsingEmailAndPassword(
+      email: email,
+      password: password,
     );
   }
 }

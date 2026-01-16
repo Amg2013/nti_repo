@@ -11,8 +11,8 @@ class FirestoreService {
     try {
       final docRef = await _firestore.collection(collection).add({
         ...data,
-        'createdAt': FieldValue.serverTimestamp(),
-        'updatedAt': FieldValue.serverTimestamp(),
+        // 'createdAt': FieldValue.serverTimestamp(),
+        // 'updatedAt': FieldValue.serverTimestamp(),
       });
       return docRef;
     } catch (e) {
@@ -57,6 +57,15 @@ class FirestoreService {
   }) async {
     try {
       final snapshot = await _firestore.collection(collection).get();
+      /*
+
+map<int x ,dynamic y> = {
+  'x': doc.id,
+  
+   ...doc.data()}
+*/
+      ///
+      ///
       return snapshot.docs.map((doc) => {'id': doc.id, ...doc.data()}).toList();
     } catch (e) {
       throw Exception('Failed to fetch documents: $e');
