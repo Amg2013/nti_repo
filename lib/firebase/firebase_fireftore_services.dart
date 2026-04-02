@@ -8,6 +8,13 @@ class FirebaseFirestoreServices {
     return _firebaseFirestore.collection(collectionPath);
   }
 
+  CollectionReference get colthes => _firebaseFirestore.collection('clothes');
+
+  //
+  CollectionReference<Map<String, dynamic>> get products =>
+      _firebaseFirestore.collection('products');
+
+  ///
   final user = FirebaseFirestore.instance.collection('users');
 
   Future<void> addUser(String name, String email) {

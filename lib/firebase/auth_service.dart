@@ -15,12 +15,18 @@ class AuthService {
         email: email,
         password: password,
       );
+
       return userCredential;
     } on FirebaseAuthException catch (e) {
       throw _handleAuthException(e);
     } catch (e) {
       throw Exception('An unexpected error occurred: $e');
     }
+  }
+
+  Future<dynamic> getUserName() async {
+    await Future.delayed(Duration(seconds: 20)); // Simulate network delay
+    return _firebaseAuth.currentUser ?? 'no user ';
   }
 
   /// Sign up with email and password
