@@ -2,8 +2,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:nti_repo/features/auth/data/models/user_data_class.dart';
 import 'package:nti_repo/features/auth/data/services/firebase_auth_secives.dart';
-
-import 'package:provider/provider.dart';
+import 'package:nti_repo/features/home/ui/home_screen.dart';
+import 'package:nti_repo/features/orders/ui/all_orders_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -60,13 +60,13 @@ class _LoginScreenState extends State<LoginScreen> {
                 children: [
                   Expanded(
                     child: ElevatedButton(
-                      onPressed: () {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
-                            content: Text('Login: ${_emailController.text}'),
+                      onPressed:
+                          () => _signInInUiScreen(
+                            UserDataClass(
+                              email: _emailController.text,
+                              name: _passwordController.text,
+                            ),
                           ),
-                        );
-                      },
                       child: const Text('Login'),
                     ),
                   ),
@@ -93,7 +93,19 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
-  _singUpInUiScreen(UserDataClass userData) async {
+  Future<void> _signInInUiScreen(UserDataClass userData) async {
+    UserCredential? result = await FirebaseAuthServices.signIn(userData);
+
+    result == null
+        ? ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Login Failed', style: TextStyle(color: Colors.red)),
+          ),
+        )
+        : _goToHomeScreen();
+  }
+
+  Future<void> _singUpInUiScreen(UserDataClass userData) async {
     //
     UserCredential? result = await FirebaseAuthServices.singUp(userData);
 
@@ -107,11 +119,15 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
           ),
         )
-        : ScaffoldMessenger.of(
-          context,
-        ).showSnackBar(const SnackBar(content: Text('Sign Up Success')));
+        : _goToHomeScreen();
 
     // ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(result)));
+  }
+
+  void _goToHomeScreen() {
+    Navigator.of(
+      context,
+    ).pushReplacement(MaterialPageRoute(builder: (_) => AllOrdersScreen()));
   }
 
   ///
