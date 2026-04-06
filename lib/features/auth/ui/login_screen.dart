@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:nti_repo/features/auth/data/models/user_data_class.dart';
 import 'package:nti_repo/features/auth/data/services/firebase_auth_secives.dart';
 import 'package:nti_repo/features/home/ui/home_screen.dart';
-import 'package:nti_repo/features/orders/ui/all_orders_screen.dart';
+import 'package:nti_repo/features/recommended/ui/screens/recommednd_properites.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -125,9 +125,9 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   void _goToHomeScreen() {
-    Navigator.of(
-      context,
-    ).pushReplacement(MaterialPageRoute(builder: (_) => AllOrdersScreen()));
+    Navigator.of(context).pushReplacement(
+      MaterialPageRoute(builder: (_) => RecommedndProperites()),
+    );
   }
 
   ///
