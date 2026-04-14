@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-class FirestoreService {
+class StanderdFirestoreService {
   static final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
   /// CREATE - Add a new document to a collection

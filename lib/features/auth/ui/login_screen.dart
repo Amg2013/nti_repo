@@ -1,9 +1,13 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:nti_repo/features/auth/data/models/user_data_class.dart';
 import 'package:nti_repo/features/auth/data/services/firebase_auth_secives.dart';
+import 'package:nti_repo/features/auth/ui/bloc/login_bloc.dart';
+import 'package:nti_repo/features/auth/ui/bloc/login_events.dart';
+import 'package:nti_repo/features/auth/ui/bloc/login_sates.dart';
 import 'package:nti_repo/features/home/ui/home_screen.dart';
-import 'package:nti_repo/features/orders/ui/all_orders_screen.dart';
+import 'package:nti_repo/features/recommended/ui/screens/recommednd_properites.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -25,71 +29,93 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: const Text('Login Screen')),
-      body: Center(
-        child: SingleChildScrollView(
-          padding: const EdgeInsets.all(16),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              // 4- use Consumer or Provider.of to access the counter value from CounterProvider
-              // and display it here
-              const Text('You have pushed the button this many times:'),
+    return BlocConsumer<LoginBloc, LoginSates>(
+      listener: (context, state) {},
 
-              const SizedBox(height: 20),
-              TextField(
-                controller: _emailController,
-                keyboardType: TextInputType.emailAddress,
-                decoration: const InputDecoration(
-                  labelText: 'Email',
-                  border: OutlineInputBorder(),
-                ),
-              ),
-              const SizedBox(height: 12),
-              TextField(
-                controller: _passwordController,
-                obscureText: true,
-                decoration: const InputDecoration(
-                  labelText: 'Password',
-                  border: OutlineInputBorder(),
-                ),
-              ),
-              const SizedBox(height: 12),
-              Row(
+      //
+      builder: (context, state) {
+        if (state is LoginLoadingState) {
+          return CircularProgressIndicator();
+        }
+        if (state is LoginSuccessState) {
+          return Scaffold(body: Center(child: Text(state.userName)));
+        }
+
+        return Scaffold(
+          appBar: AppBar(title: const Text('Login Screen')),
+          body: Center(
+            child: SingleChildScrollView(
+              padding: const EdgeInsets.all(16),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Expanded(
-                    child: ElevatedButton(
-                      onPressed:
-                          () => _signInInUiScreen(
-                            UserDataClass(
-                              email: _emailController.text,
-                              name: _passwordController.text,
-                            ),
-                          ),
-                      child: const Text('Login'),
+                  // 4- use Consumer or Provider.of to access the counter value from CounterProvider
+                  // and display it here
+                  const Text('You have pushed the button this many times:'),
+
+                  const SizedBox(height: 20),
+                  TextField(
+                    controller: _emailController,
+                    keyboardType: TextInputType.emailAddress,
+                    decoration: const InputDecoration(
+                      labelText: 'Email',
+                      border: OutlineInputBorder(),
                     ),
                   ),
-                  const SizedBox(width: 12),
-                  Expanded(
-                    child: ElevatedButton(
-                      onPressed:
-                          () => _singUpInUiScreen(
-                            UserDataClass(
-                              email: _emailController.text,
-                              name: _passwordController.text,
-                            ),
-                          ),
-                      child: const Text('Sign Up'),
+                  const SizedBox(height: 12),
+                  TextField(
+                    controller: _passwordController,
+                    obscureText: true,
+                    decoration: const InputDecoration(
+                      labelText: 'Password',
+                      border: OutlineInputBorder(),
                     ),
                   ),
+                  const SizedBox(height: 12),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: ElevatedButton(
+                          onPressed:
+                              () => context.read<LoginBloc>().add(
+                                LoginWithCredentialsEvent(
+                                  email: _emailController.text,
+
+                                  password: _passwordController.text,
+                                ),
+                              ),
+
+                          // _signInInUiScreen(
+                          //   UserDataClass(
+                          //     email: _emailController.text,
+                          //     name: _passwordController.text,
+                          //   ),
+                          // ),
+                          child: const Text('Login'),
+                        ),
+                      ),
+                      const SizedBox(width: 12),
+                      Expanded(
+                        child: ElevatedButton(
+                          onPressed:
+                              () => _singUpInUiScreen(
+                                UserDataClass(
+                                  email: _emailController.text,
+                                  name: _passwordController.text,
+                                ),
+                              ),
+                          child: const Text('Sign Up'),
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 12),
                 ],
               ),
-              const SizedBox(height: 12),
-            ],
+            ),
           ),
-        ),
-      ),
+        );
+      },
     );
   }
 
@@ -125,9 +151,9 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   void _goToHomeScreen() {
-    Navigator.of(
-      context,
-    ).pushReplacement(MaterialPageRoute(builder: (_) => AllOrdersScreen()));
+    Navigator.of(context).pushReplacement(
+      MaterialPageRoute(builder: (_) => RecommedndProperites()),
+    );
   }
 
   ///
