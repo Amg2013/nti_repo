@@ -1,20 +1,13 @@
-import 'package:firebase_core/firebase_core.dart';
+// import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:nti_repo/core/app_theme.dart';
-import 'package:nti_repo/features/auth/ui/bloc/login_bloc.dart';
-import 'package:nti_repo/features/auth/ui/bloc/login_sates.dart';
-import 'package:nti_repo/features/auth/ui/login_screen.dart';
-import 'package:nti_repo/features/counter/ui/bloc/counter_bloc.dart';
-import 'package:nti_repo/features/counter/ui/counter_screen.dart';
-import 'package:nti_repo/features/home/bloc/tasks_manger_bloc.dart';
-import 'package:nti_repo/features/home/ui/tasks_screen.dart';
-import 'package:nti_repo/features/recommended/ui/screens/recommednd_properites.dart';
+import 'package:nti_repo/features/home/home_screen.dart';
 import 'package:nti_repo/firebase_options.dart';
+import 'package:nti_repo/utils/app_themes.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  //await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 
   runApp(const MyApp());
 }
@@ -28,21 +21,14 @@ class MyApp extends StatelessWidget {
     //
     //
     return MaterialApp(
-      home: MultiBlocProvider(
-        providers: [
-          // BlocProvider(create: (_) => TasksMangerBloc() , ),
-          BlocProvider(create: (_) => CounterBloc()),
-          BlocProvider(create: (_) => LoginBloc(LoginInitialState())),
-        ],
-        child: TasksScreen(),
-      ),
+      home: HomeScreen(),
 
-      //
-      //  themeMode: switchTheme(),
-      theme: AppTheme.lightTheme,
-
-      // dark
-      darkTheme: AppTheme.lightTheme,
+      //1 theme data
+      // theme mode dark , light
+      // theme
+      theme: AppThemes.darkTheme,
+      // darkTheme: AppThemes.darkTheme,
+      themeMode: ThemeMode.light,
     );
   }
 }
