@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class FeedCard extends StatelessWidget {
+class FeedCardWidget extends StatelessWidget {
   final String image;
   final String category;
   final Color categoryColor;
@@ -11,7 +11,7 @@ class FeedCard extends StatelessWidget {
   final int daysRemaining;
   final VoidCallback? onDonate;
 
-  const FeedCard({
+  const FeedCardWidget({
     super.key,
     required this.image,
     required this.category,

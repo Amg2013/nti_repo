@@ -28,4 +28,18 @@ List<FeedCardData> testData = [
       // Handle donation action
     },
   ),
+
+  FeedCardData(
+    image: 'assets/images/education_donation.jpg',
+    category: 'Education',
+    categoryColor: Colors.blue,
+    title: 'Education for All',
+    description: 'Support education initiatives for underprivileged children.',
+    targetAmount: 20000,
+    collectedAmount: 12000,
+    daysRemaining: 30,
+    onDonate: () {
+      // Handle donation action
+    },
+  ),
 ];

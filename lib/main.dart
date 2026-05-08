@@ -1,8 +1,10 @@
 // import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:nti_repo/features/home/home_screen.dart';
+import 'package:nti_repo/features/home/ui/home_screen.dart';
+import 'package:nti_repo/features/login/login_screen.dart';
 import 'package:nti_repo/firebase_options.dart';
+import 'package:nti_repo/my_stateful_widget.dart';
 import 'package:nti_repo/utils/app_themes.dart';
 
 void main() async {
@@ -21,7 +23,8 @@ class MyApp extends StatelessWidget {
     //
     //
     return MaterialApp(
-      home: HomeScreen(),
+      // home: HomeScreen(),
+      home: LoginScreen(),
 
       //1 theme data
       // theme mode dark , light

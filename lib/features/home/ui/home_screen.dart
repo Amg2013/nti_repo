@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:nti_repo/core/widgets/app_button.dart';
-import 'package:nti_repo/features/home/data/feed_data_class.dart';
-import 'package:nti_repo/features/home/feed_widget.dart';
+import 'package:nti_repo/features/home/ui/feed_widget.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -58,24 +57,7 @@ class _HomeScreenState extends State<HomeScreen> {
             //               vertical: 8,
             //             ),
             //           ),
-            SizedBox(
-              height: 600,
-              width: double.infinity,
-              child: FeedWidget(
-                cards: [
-                  FeedCardData(
-                    image: 'image',
-                    category: 'category',
-                    categoryColor: Colors.blue,
-                    title: 'title',
-                    description: 'description',
-                    targetAmount: 1000,
-                    collectedAmount: 500,
-                    daysRemaining: 10,
-                  ),
-                ],
-              ),
-            ),
+            SizedBox(height: 600, width: double.infinity, child: FeedWidget()),
           ],
         ),
       ),

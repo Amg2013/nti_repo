@@ -1,20 +1,20 @@
 import 'package:flutter/material.dart';
-import 'package:nti_repo/features/home/card_feed_widget.dart';
+import 'package:nti_repo/features/home/ui/card_feed_widget.dart';
 import 'package:nti_repo/features/home/data/feed_data_class.dart';
+import 'package:nti_repo/features/home/data/list_of_feed.dart';
 import 'package:nti_repo/utils/app_colors.dart';
 
 /// Feed Widget - displays a list of donation cards
 class FeedWidget extends StatelessWidget {
-  final List<FeedCardData> cards;
   final ScrollController? scrollController;
-
-  const FeedWidget({super.key, required this.cards, this.scrollController});
+  List<FeedCardData> cards = testData; // Replace with actual data source
+  FeedWidget({super.key, this.scrollController});
 
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
       itemBuilder:
-          (context, index) => FeedCard(
+          (context, index) => FeedCardWidget(
             image: cards[index].image,
             category: cards[index].category,
             categoryColor: cards[index].categoryColor,
@@ -23,7 +23,6 @@ class FeedWidget extends StatelessWidget {
             targetAmount: cards[index].targetAmount,
             collectedAmount: cards[index].collectedAmount,
             daysRemaining: cards[index].daysRemaining,
-            onDonate: cards[index].onDonate,
           ),
     );
   }
